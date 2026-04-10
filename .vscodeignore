@@ -1,0 +1,43 @@
+## Excluded from VSIX — not needed at runtime
+
+# Source (bundled by esbuild into out/extension.js)
+src/
+
+# Dev tooling
+node_modules/
+.vscode-test/
+tsconfig.json
+.eslintrc*
+.prettierrc*
+scripts/
+
+# Test files
+test-samples/
+
+# Claude Code project files
+.claude/
+CLAUDE.md
+sprint-log.md
+docs/
+SPRINT-*.md
+assets/ASSETS-NEEDED.md
+
+# Git and dev files
+.gitignore
+.vscode/
+
+# Build artifacts
+**/*.js.map
+**/*.d.ts
+
+# Old VSIX builds
+*.vsix
+
+## Included in VSIX
+# out/extension.js       ← the bundle
+# package.json           ← manifest
+# assets/                ← icon + screenshots (NOT assets/icons/ subdir — that's optional)
+# media/                 ← webview HTML (Sprint 5 Settings UI)
+# README.md
+# CHANGELOG.md
+# LICENSE

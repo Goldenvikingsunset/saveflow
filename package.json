@@ -1,0 +1,185 @@
+{
+  "name": "saveflow",
+  "displayName": "SaveFlow — Compile on Save (SCSS, Less, TypeScript)",
+  "description": "The maintained Compile Hero replacement. SCSS partials watch correctly. tsconfig.json honoured. Zero CPU on idle. Problems panel errors — no toast spam.",
+  "version": "1.0.1",
+  "publisher": "GingerTurtle",
+  "preview": false,
+  "icon": "assets/icons/icon-128.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginger-turtle/saveflow"
+  },
+  "bugs": {
+    "url": "https://github.com/ginger-turtle/saveflow/issues"
+  },
+  "homepage": "https://gingerturtleapps.com/saveflow",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "scss",
+    "sass",
+    "less",
+    "stylus",
+    "typescript",
+    "compile on save",
+    "auto compile",
+    "live compile",
+    "scss compiler",
+    "sass compiler",
+    "less compiler",
+    "stylus compiler",
+    "typescript compiler",
+    "css compiler",
+    "css preprocessor",
+    "sass watcher",
+    "tsconfig",
+    "frontend",
+    "webdev",
+    "compile hero alternative"
+  ],
+  "galleryBanner": {
+    "color": "#1E3A5F",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:scss",
+    "onLanguage:sass",
+    "onLanguage:less",
+    "onLanguage:stylus",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "saveflow.activatePro",
+        "title": "SaveFlow: Activate Pro"
+      },
+      {
+        "command": "saveflow.deactivatePro",
+        "title": "SaveFlow: Deactivate Pro"
+      },
+      {
+        "command": "saveflow.compileFile",
+        "title": "SaveFlow: Compile Current File"
+      },
+      {
+        "command": "saveflow.showOutput",
+        "title": "SaveFlow: Show Output"
+      },
+      {
+        "command": "saveflow.openSettings",
+        "title": "SaveFlow: Open Settings"
+      }
+    ],
+    "configuration": {
+      "title": "SaveFlow",
+      "properties": {
+        "saveflow.scss.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable SCSS/Sass compile on save."
+        },
+        "saveflow.scss.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Output directory for compiled CSS files. Leave empty to output alongside source. Relative paths resolve from workspace root."
+        },
+        "saveflow.scss.minify": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Output minified CSS."
+        },
+        "saveflow.scss.sourceMaps": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Generate `.css.map` source map files alongside compiled output."
+        },
+        "saveflow.less.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable Less compile on save."
+        },
+        "saveflow.less.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Output directory for compiled CSS files. Leave empty to output alongside source."
+        },
+        "saveflow.less.minify": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Output minified CSS."
+        },
+        "saveflow.stylus.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable Stylus compile on save."
+        },
+        "saveflow.stylus.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Output directory for compiled CSS files. Leave empty to output alongside source."
+        },
+        "saveflow.stylus.minify": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Output minified CSS."
+        },
+        "saveflow.typescript.enabled": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable TypeScript compile on save. **Requires SaveFlow Pro.**"
+        },
+        "saveflow.typescript.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Output directory for compiled JS files. Leave empty to use tsconfig.json `outDir`. **Requires SaveFlow Pro.**"
+        },
+        "saveflow.typescript.sourceMaps": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Generate `.js.map` source map files alongside compiled output. **Requires SaveFlow Pro.**"
+        },
+        "saveflow.ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Glob patterns to exclude from compilation. E.g. `[\"**/node_modules/**\", \"**/dist/**\"]`."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "watch": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "compile": "tsc --noEmit",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/less": "^3.0.6",
+    "@types/micromatch": "^4.0.10",
+    "@types/node": "^20.0.0",
+    "@types/stylus": "^0.48.43",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "sharp": "^0.34.5"
+  },
+  "dependencies": {
+    "less": "^4.2.0",
+    "micromatch": "^4.0.5",
+    "sass": "^1.70.0",
+    "stylus": "^0.62.0",
+    "typescript": "^5.3.0"
+  }
+}

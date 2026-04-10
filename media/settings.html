@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaveFlow Settings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      padding: 2rem;
+      font-family: var(--vscode-font-family);
+      font-size: var(--vscode-font-size);
+      color: var(--vscode-foreground);
+      background: var(--vscode-editor-background);
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: var(--vscode-descriptionForeground);
+      margin-bottom: 2rem;
+    }
+
+    .pro-banner {
+      background: var(--vscode-textCodeBlock-background);
+      border-left: 3px solid var(--vscode-button-background);
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-radius: 4px;
+    }
+
+    .pro-banner h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--vscode-editor-background);
+      border: 1px solid var(--vscode-panel-border);
+      border-radius: 6px;
+    }
+
+    .section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--vscode-foreground);
+      border-bottom: 1px solid var(--vscode-panel-border);
+      padding-bottom: 0.5rem;
+    }
+
+    .setting {
+      margin-bottom: 1.25rem;
+    }
+
+    .setting:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      color: var(--vscode-foreground);
+    }
+
+    .description {
+      font-size: 0.9rem;
+      color: var(--vscode-descriptionForeground);
+      margin-top: 0.25rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      background: var(--vscode-input-background);
+      color: var(--vscode-input-foreground);
+      border: 1px solid var(--vscode-input-border);
+      border-radius: 3px;
+      font-family: var(--vscode-font-family);
+      font-size: var(--vscode-font-size);
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--vscode-focusBorder);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--vscode-input-placeholderForeground);
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checkbox-wrapper label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    button {
+      background: var(--vscode-button-background);
+      color: var(--vscode-button-foreground);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      font-family: var(--vscode-font-family);
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: var(--vscode-button-hoverBackground);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .pro-badge {
+      display: inline-block;
+      background: var(--vscode-badge-background);
+      color: var(--vscode-badge-foreground);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .upgrade-cta {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .upgrade-cta h1 {
+      margin-bottom: 1rem;
+    }
+
+    .upgrade-cta p {
+      color: var(--vscode-descriptionForeground);
+      margin-bottom: 1.5rem;
+    }
+
+    .upgrade-cta button {
+      font-size: 1rem;
+      padding: 0.75rem 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .secondary-button {
+      background: transparent;
+      border: 1px solid var(--vscode-button-background);
+      color: var(--vscode-button-background);
+    }
+
+    .secondary-button:hover {
+      background: var(--vscode-textCodeBlock-background);
+    }
+
+    a {
+      color: var(--vscode-textLink-foreground);
+    }
+  </style>
+</head>
+<body>
+  <!-- Free user upgrade CTA (hidden if Pro) -->
+  <div id="upgradeCta" class="upgrade-cta" style="display: none;">
+    <h1>Settings UI — Pro Feature</h1>
+    <p>Upgrade to SaveFlow Pro to access the visual settings panel.</p>
+    <p>Pro includes TypeScript compilation, source maps, and this settings UI.</p>
+    <div class="cta-buttons">
+      <button onclick="buyAnnual()">Buy Annual — £4.99/yr</button>
+      <button class="secondary-button" onclick="buyLifetime()">Buy Lifetime — £14.99</button>
+    </div>
+    <p class="description">Already have a licence key? <a href="#" onclick="activatePro(); return false;">Activate Pro</a></p>
+  </div>
+
+  <!-- Pro user settings UI (hidden if free) -->
+  <div id="settingsContent" style="display: none;">
+    <h1>SaveFlow Settings</h1>
+    <p class="subtitle">Manage compile-on-save settings for SCSS, Less, Stylus, and TypeScript.</p>
+
+    <div class="pro-banner">
+      <h2>✨ SaveFlow Pro Active</h2>
+      <p>You have access to TypeScript compilation, source maps, and this settings UI.</p>
+    </div>
+
+    <!-- SCSS Settings -->
+    <div class="section">
+      <h2>SCSS / Sass</h2>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="scss-enabled" onchange="updateSetting('scss.enabled', this.checked)">
+          <label for="scss-enabled">Enable SCSS/Sass compile on save</label>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label for="scss-output">Output Directory</label>
+        <input type="text" id="scss-output" placeholder="Leave empty to output alongside source" onblur="updateSetting('scss.outputDirectory', this.value)">
+        <p class="description">Relative paths resolve from workspace root. Example: <code>dist/css</code></p>
+      </div>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="scss-minify" onchange="updateSetting('scss.minify', this.checked)">
+          <label for="scss-minify">Minify CSS output</label>
+        </div>
+      </div>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="scss-sourcemaps" onchange="updateSetting('scss.sourceMaps', this.checked)">
+          <label for="scss-sourcemaps">Generate source maps (.css.map)</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Less Settings -->
+    <div class="section">
+      <h2>Less</h2>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="less-enabled" onchange="updateSetting('less.enabled', this.checked)">
+          <label for="less-enabled">Enable Less compile on save</label>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label for="less-output">Output Directory</label>
+        <input type="text" id="less-output" placeholder="Leave empty to output alongside source" onblur="updateSetting('less.outputDirectory', this.value)">
+      </div>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="less-minify" onchange="updateSetting('less.minify', this.checked)">
+          <label for="less-minify">Minify CSS output</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stylus Settings -->
+    <div class="section">
+      <h2>Stylus</h2>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="stylus-enabled" onchange="updateSetting('stylus.enabled', this.checked)">
+          <label for="stylus-enabled">Enable Stylus compile on save</label>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label for="stylus-output">Output Directory</label>
+        <input type="text" id="stylus-output" placeholder="Leave empty to output alongside source" onblur="updateSetting('stylus.outputDirectory', this.value)">
+      </div>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="stylus-minify" onchange="updateSetting('stylus.minify', this.checked)">
+          <label for="stylus-minify">Minify CSS output</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- TypeScript Settings (Pro) -->
+    <div class="section">
+      <h2>TypeScript <span class="pro-badge">PRO</span></h2>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="ts-enabled" onchange="updateSetting('typescript.enabled', this.checked)">
+          <label for="ts-enabled">Enable TypeScript compile on save</label>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label for="ts-output">Output Directory</label>
+        <input type="text" id="ts-output" placeholder="Uses tsconfig.json outDir if empty" onblur="updateSetting('typescript.outputDirectory', this.value)">
+        <p class="description">This setting overrides <code>tsconfig.json</code> outDir if set.</p>
+      </div>
+
+      <div class="setting">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="ts-sourcemaps" onchange="updateSetting('typescript.sourceMaps', this.checked)">
+          <label for="ts-sourcemaps">Generate source maps (.js.map)</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global Settings -->
+    <div class="section">
+      <h2>Global</h2>
+
+      <div class="setting">
+        <label for="ignore">Ignore Patterns</label>
+        <input type="text" id="ignore" placeholder="e.g. **/node_modules/**, **/dist/**" onblur="updateIgnore(this.value)">
+        <p class="description">Comma-separated glob patterns to exclude from compilation.</p>
+      </div>
+    </div>
+  </div>
+
+  <script nonce="${nonce}">
+    const vscode = acquireVsCodeApi();
+    const isPro = ${isPro};
+    const annualCheckoutUrl = '${annualCheckoutUrl}';
+    const lifetimeCheckoutUrl = '${lifetimeCheckoutUrl}';
+
+    // Show appropriate UI based on Pro status
+    if (isPro) {
+      document.getElementById('settingsContent').style.display = 'block';
+    } else {
+      document.getElementById('upgradeCta').style.display = 'block';
+    }
+
+    // Listen for messages from the extension
+    window.addEventListener('message', event => {
+      const message = event.data;
+
+      if (message.command === 'loadSettings') {
+        populateSettings(message.settings);
+      }
+    });
+
+    /**
+     * Populates the form with current settings.
+     */
+    function populateSettings(settings) {
+      // SCSS
+      document.getElementById('scss-enabled').checked = settings.scss.enabled;
+      document.getElementById('scss-output').value = settings.scss.outputDirectory || '';
+      document.getElementById('scss-minify').checked = settings.scss.minify;
+      document.getElementById('scss-sourcemaps').checked = settings.scss.sourceMaps || false;
+
+      // Less
+      document.getElementById('less-enabled').checked = settings.less.enabled;
+      document.getElementById('less-output').value = settings.less.outputDirectory || '';
+      document.getElementById('less-minify').checked = settings.less.minify;
+
+      // Stylus
+      document.getElementById('stylus-enabled').checked = settings.stylus.enabled;
+      document.getElementById('stylus-output').value = settings.stylus.outputDirectory || '';
+      document.getElementById('stylus-minify').checked = settings.stylus.minify;
+
+      // TypeScript
+      document.getElementById('ts-enabled').checked = settings.typescript.enabled;
+      document.getElementById('ts-output').value = settings.typescript.outputDirectory || '';
+      document.getElementById('ts-sourcemaps').checked = settings.typescript.sourceMaps;
+
+      // Global
+      document.getElementById('ignore').value = (settings.ignore || []).join(', ');
+    }
+
+    /**
+     * Sends a setting update to the extension.
+     */
+    function updateSetting(key, value) {
+      vscode.postMessage({
+        command: 'updateSetting',
+        key: key,
+        value: value
+      });
+    }
+
+    /**
+     * Updates the ignore patterns (converts comma-separated string to array).
+     */
+    function updateIgnore(value) {
+      const patterns = value
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      updateSetting('ignore', patterns);
+    }
+
+    /**
+     * Triggers Pro activation.
+     */
+    function openExternal(url) {
+      vscode.postMessage({ command: 'openExternal', url: url });
+    }
+
+    function buyAnnual() {
+      openExternal(annualCheckoutUrl);
+    }
+
+    function buyLifetime() {
+      openExternal(lifetimeCheckoutUrl);
+    }
+
+    function activatePro() {
+      vscode.postMessage({ command: 'activatePro' });
+    }
+  </script>
+</body>
+</html>

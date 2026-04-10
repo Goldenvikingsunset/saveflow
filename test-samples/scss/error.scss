@@ -1,0 +1,8 @@
+// SaveFlow Test — SCSS with Syntax Error
+// This should produce an error in the Problems panel
+
+body {
+  color: #333
+  // Missing semicolon above — intentional error
+  background: red;
+}

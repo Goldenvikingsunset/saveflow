@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run compile:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir:*)",
+      "Bash(node scripts/generate-icons.js:*)",
+      "Bash(node -e:*)",
+      "Bash(npx vsce --version)",
+      "Bash(npx vsce:*)"
+    ]
+  }
+}

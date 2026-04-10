@@ -1,0 +1,17 @@
+// SaveFlow Test — Main SCSS File
+// This file imports _variables.scss
+// When _variables.scss is saved, this file should be recompiled
+
+@use 'variables' as *;
+
+body {
+  font-family: $font-stack;
+  background-color: $primary-color;
+  padding: $base-padding;
+
+  .container {
+    background: $secondary-color;
+    padding: $base-padding * 2;
+    border-radius: 4px;
+  }
+}

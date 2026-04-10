@@ -1,0 +1,25 @@
+{
+  // SaveFlow Test Configuration
+  // Uncomment settings below to test different features
+
+  // Test output directory (Test 6)
+  // "saveflow.scss.outputDirectory": "./dist/css",
+  // "saveflow.less.outputDirectory": "./dist/css",
+  // "saveflow.stylus.outputDirectory": "./dist/css",
+
+  // Test minify (Test 8)
+  // "saveflow.scss.minify": true,
+  // "saveflow.less.minify": true,
+  // "saveflow.stylus.minify": true,
+
+  // Test ignore patterns (Test 7)
+  // "saveflow.ignore": ["**/ignored.*", "**/node_modules/**"],
+
+  // Enable all compilers (default for free tier)
+  "saveflow.scss.enabled": true,
+  "saveflow.less.enabled": true,
+  "saveflow.stylus.enabled": true
+
+  // TypeScript (Sprint 4 — Pro only)
+  // "saveflow.typescript.enabled": false
+}
