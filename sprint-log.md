@@ -57,25 +57,76 @@ Icon sizes (6 variants), Settings UI panel (Pro-gated), SCSS source maps, LICENS
 
 ## Post-Launch Backlog (prioritised)
 
-### P1 — Ship within 2 weeks of launch
-- [ ] **Licence deactivation** — call `POST /v1/licenses/deactivate` when extension is
-      uninstalled or user runs "SaveFlow: Deactivate Pro" command. Enables licence transfers.
-      File: `src/lib/licenceValidator.ts` + new command in `package.json`
-- [ ] **Delete Default variant 1513833** in LemonSqueezy dashboard (housekeeping)
+### P0 — Housekeeping (do now)
+- [ ] **Delete Default variant 1513833** in LemonSqueezy dashboard
+- [ ] **Push assets/ to GitHub** — screenshots must be committed so marketplace images load
 
-### P2 — Ship within 4 weeks if demand warrants
-- [ ] **Compile Hero migration command** — `SaveFlow: Import Compile Hero Settings`
-      Reads `compile-hero.*` keys from workspace settings, maps them 1:1 to `saveflow.*`
-      keys. Lowers friction for the 216k displaced users.
-- [ ] **VSIX size reduction** — 7MB is large. Investigate lazy-loading the TypeScript
-      compiler — only `require('typescript')` when Pro is activated. Could drop to ~2MB.
-- [ ] **Sass `@use`/`@forward` partial graph** — current graph parses `@import` reliably
-      but `@use` with namespaces needs more testing on complex codebases.
+### P1 — Tier 1 features (highest impact, build next sprint)
 
-### P3 — Consider at 1,000+ installs
-- [ ] **Multi-machine licence** — offer a higher-tier variant (e.g. 3 machines) for teams
-- [ ] **Status bar indicator** — small "SF" icon showing compile state (idle/compiling/error)
-- [ ] **OVSX publish** — publish to open-vsx.org for VS Codium users (same VSIX)
+#### Status bar indicator (Free)
+- [ ] Add `vscode.StatusBarItem` showing compile state: idle / compiling / error count
+- [ ] Idle: `$(check) SaveFlow` — click opens Output channel
+- [ ] Compiling: `$(sync~spin) Compiling...`
+- [ ] Error: `$(error) 2 errors` in red — click opens Problems panel
+- [ ] This is the #1 visual trust signal missing vs Live Sass Compiler
+- [ ] File: new `src/lib/statusBar.ts`, wired into `extension.ts`
+
+#### Autoprefixer — basic (Free) + configurable (Pro)
+- [ ] `npm install autoprefixer postcss` as runtime dependency
+- [ ] Post-process compiled CSS through autoprefixer before writing output file
+- [ ] Free tier: always uses `defaults` browserslist (covers 90%+ of use cases)
+- [ ] New free setting: `saveflow.autoprefixer.enabled` (boolean, default: false)
+- [ ] Pro setting: `saveflow.autoprefixer.browserslist` (string array, e.g. `["last 2 versions"]`)
+- [ ] Pro setting: `saveflow.autoprefixer.readFromPackageJson` (boolean) — reads
+      `browserslist` field from workspace `package.json` automatically
+- [ ] File: new `src/lib/autoprefixer.ts` wrapper
+- [ ] This is the #1 feature gap vs Live Sass Compiler
+
+#### Compile Hero migration command (Free)
+- [ ] New command: `SaveFlow: Import Compile Hero Settings`
+- [ ] Reads all `compile-hero.*` workspace settings
+- [ ] Maps them to `saveflow.*` equivalents (see migration table in README)
+- [ ] Shows a preview diff in a QuickPick or information message
+- [ ] Applies settings to `.vscode/settings.json` on user confirmation
+- [ ] Removes `compile-hero.*` keys if user opts in
+- [ ] This is the single highest-leverage growth feature — removes all friction for
+      the 216k Compile Hero users
+- [ ] File: new `src/commands/importCompileHero.ts`
+
+#### Right-click compile folder (Free)
+- [ ] Register a `menus` contribution in `package.json` → `explorer/context`
+- [ ] Command: `SaveFlow: Compile All Files in Folder`
+- [ ] Walks the folder recursively, finds all supported source files (not partials)
+- [ ] Compiles each — reports summary in Output channel: "Compiled 12 files, 0 errors"
+- [ ] Filters by `saveflow.ignore` globs
+- [ ] File: new `src/commands/compileFolder.ts`
+
+### P2 — Tier 2 Pro features (conversion drivers)
+
+#### Build profiles (Pro) ← biggest Pro differentiator
+- [ ] Named compile configurations stored in `.vscode/saveflow-profiles.json`
+- [ ] Each profile specifies: minify, sourceMaps, outputDirectory per language
+- [ ] Two built-in profiles: `dev` (expanded, source maps) and `prod` (minified, no maps)
+- [ ] Switch via status bar click (Pro users) or Command Palette: `SaveFlow: Switch Profile`
+- [ ] Free users see profile names in status bar but switching prompts Pro upgrade
+- [ ] This feature has no equivalent in any competitor
+- [ ] File: `src/lib/profiles.ts` + `src/panels/` updates
+
+#### Compile on open (Pro)
+- [ ] When a supported file is opened (`workspace.onDidOpenTextDocument`), compile it
+- [ ] Gated behind `isProActivated()` — free users get on-save only
+- [ ] New Pro setting: `saveflow.compileOnOpen` (boolean, default: false)
+- [ ] Useful for teams where other members or tooling modifies source files
+
+#### Licence deactivation (Pro)
+- [ ] Call `POST /v1/licenses/deactivate` when user runs `SaveFlow: Deactivate Pro`
+- [ ] Allows licence transfer to a new machine without support ticket
+- [ ] File: `src/lib/licenceValidator.ts` extension + new command
+
+### P3 — Do not build yet
+- **Watch mode** — contradicts SaveFlow's zero-CPU positioning; reintroduces CPU problem
+- **Multi-machine licences** — wait for demand signal at 500+ Pro users
+- **OVSX publish** — 5 minutes when ready, not a feature
 
 ---
 

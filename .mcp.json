@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "business-central": {
+      "command": "C:\\Users\\Renni\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "args": [
+        "-m",
+        "bc_mcp_proxy",
+        "--TenantId",
+        "e909a6fa-e3f1-4937-af64-5e3005d0b319",
+        "--ClientId",
+        "1ce7d060-a46c-4f33-ae45-94466e8fdd18",
+        "--Environment",
+        "Dev",
+        "--Company",
+        "CRONUS UK Ltd.",
+        "--ConfigurationName",
+        "claude"
+      ]
+    }
+  }
+}

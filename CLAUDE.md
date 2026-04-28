@@ -6,6 +6,7 @@ TypeScript) on save — without requiring a build task or terminal. It is the ma
 professional replacement for the abandoned "Compile Hero" extension (216k installs, 3.9★).
 
 Publisher: Ginger Turtle | Author: Renni
+GitHub: https://github.com/Goldenvikingsunset/saveflow
 Target store: VS Code Marketplace
 Monetisation: Free tier (SCSS/Less/Stylus) + Pro tier via LemonSqueezy (TypeScript, config UI)
 Pro price: £4.99/yr or £14.99 lifetime

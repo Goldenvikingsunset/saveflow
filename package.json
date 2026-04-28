@@ -2,17 +2,17 @@
   "name": "saveflow",
   "displayName": "SaveFlow — Compile on Save (SCSS, Less, TypeScript)",
   "description": "The maintained Compile Hero replacement. SCSS partials watch correctly. tsconfig.json honoured. Zero CPU on idle. Problems panel errors — no toast spam.",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "publisher": "GingerTurtle",
   "preview": false,
   "icon": "assets/icons/icon-128.png",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ginger-turtle/saveflow"
+    "url": "https://github.com/Goldenvikingsunset/saveflow"
   },
   "bugs": {
-    "url": "https://github.com/ginger-turtle/saveflow/issues"
+    "url": "https://github.com/Goldenvikingsunset/saveflow/issues"
   },
   "homepage": "https://gingerturtleapps.com/saveflow",
   "engines": {
@@ -20,7 +20,9 @@
   },
   "categories": [
     "Programming Languages",
-    "Formatters"
+    "Formatters",
+    "Linters",
+    "Other"
   ],
   "keywords": [
     "scss",
@@ -28,22 +30,36 @@
     "less",
     "stylus",
     "typescript",
+    "ts",
+    "css",
+    "javascript",
+    "compile",
     "compile on save",
     "auto compile",
-    "live compile",
-    "scss compiler",
-    "sass compiler",
-    "less compiler",
-    "stylus compiler",
-    "typescript compiler",
-    "css compiler",
+    "build",
+    "transpile",
+    "preprocessor",
     "css preprocessor",
-    "sass watcher",
+    "formatter",
+    "linter",
+    "minify",
+    "watcher",
+    "partials",
     "tsconfig",
-    "frontend",
-    "webdev",
-    "compile hero alternative"
+    "dart sass",
+    "node sass",
+    "source maps",
+    "compile hero",
+    "compile hero alternative",
+    "vscode",
+    "extension",
+    "productivity",
+    "automation"
   ],
+  "pricing": "Free",
+  "sponsor": {
+    "url": "https://github.com/sponsors/Goldenvikingsunset"
+  },
   "galleryBanner": {
     "color": "#1E3A5F",
     "theme": "dark"

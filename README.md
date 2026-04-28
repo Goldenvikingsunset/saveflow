@@ -174,8 +174,8 @@ Add glob patterns to `saveflow.ignore`:
 
 ## Support
 
-- **Bugs** → [GitHub Issues](https://github.com/ginger-turtle/saveflow/issues)
-- **Feature requests** → [GitHub Discussions](https://github.com/ginger-turtle/saveflow/discussions)
+- **Bugs** → [GitHub Issues](https://github.com/Goldenvikingsunset/saveflow/issues)
+- **Feature requests** → [GitHub Discussions](https://github.com/Goldenvikingsunset/saveflow/discussions)
 - **Pro licence support** → support@gingerturtleapps.com
 
 ---
