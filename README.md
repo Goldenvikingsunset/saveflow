@@ -8,6 +8,8 @@
 
 SCSS partials watch correctly. `tsconfig.json` is honoured. Zero CPU on idle. Errors go to the Problems panel, not toast notifications.
 
+Search terms: compile SCSS on save, compile Less on save, compile Stylus on save, TypeScript compile on save, Compile Hero replacement, VS Code Sass compiler, VS Code CSS preprocessor compiler.
+
 ---
 
 ## Screenshots

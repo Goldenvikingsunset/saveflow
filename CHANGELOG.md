@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.1] - 2026-05-11
+
+### Changed
+
+- Improved VS Code Marketplace discoverability metadata:
+	- Expanded and refined extension keywords/tags in `package.json`
+	- Updated listing description for stronger search intent coverage
+	- Added search-intent copy near the top of `README.md`
+
 ## [0.1.0] - 2026-04-10
 
 ### Added
